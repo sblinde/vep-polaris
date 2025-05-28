@@ -1,0 +1,118 @@
+#!/bin/bash
+
+if [[ "$1" == "--help" ]]; then
+  cat <<EOF
+🔍 check_vep_plugins.sh - Scan Ensembl VEP plugin files for chromosome format compatibility
+
+Usage:
+  ./check_vep_plugins.sh [--no-color] [--dir /path/to/plugins]
+
+Options:
+  --dir /path          Set a custom plugin directory (default: \$HOME/vep/Plugins)
+  --no-color           Disable colored output (for logs or plain-text)
+  --help               Show this help message
+
+Chromosome Format Legend:
+  N       → Chromosomes are listed as plain numbers (e.g., 1, 2, X, Y, MT)
+  chrN    → Chromosomes are prefixed with 'chr' (e.g., chr1, chr2, chrX, chrY)
+  ❓ Unknown → No recognizable chromosome column or empty data
+
+Why it matters:
+  Ensembl VEP is strict about matching your VCF chromosome format with plugin data files.
+  Mismatches (e.g., using chr1 in your VCF but 1 in a plugin) can cause missing annotations.
+
+Examples:
+  ./check_vep_plugins.sh
+  ./check_vep_plugins.sh --dir /vep/Plugins
+  ./check_vep_plugins.sh --no-color > plugin_scan.txt
+
+EOF
+  exit 0
+fi
+
+# Defaults
+PLUGIN_DIR="$HOME/vep/Plugins"
+USE_COLOR=true
+
+
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --no-color)
+      USE_COLOR=false
+      shift
+      ;;
+    --dir)
+      PLUGIN_DIR="$2"
+      shift 2
+      ;;
+    *)
+      echo "❌ Unknown option: $1"
+      echo "Usage: $0 [--no-color] [--dir /path/to/plugins]"
+      exit 1
+      ;;
+  esac
+done
+
+# ANSI color codes
+RESET='\033[0m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+
+# Disable color if requested
+if ! $USE_COLOR; then
+  RESET=''
+  RED=''
+  YELLOW=''
+  GREEN=''
+fi
+
+echo -e "🔍 Scanning plugin data files in: $PLUGIN_DIR"
+echo "-------------------------------------------------------------"
+printf "%-45s | %-20s | %s\n" "File" "Chromosome Format" "Header/First Line"
+echo "-------------------------------------------------------------"
+
+# Helper: truncate filename in the middle
+truncate_middle() {
+  local str="$1"
+  local maxlen="$2"
+  if [[ ${#str} -le $maxlen ]]; then
+    echo "$str"
+  else
+    local keep=$(( (maxlen - 3) / 2 ))
+    local start="${str:0:$keep}"
+    local end="${str: -$keep}"
+    echo "${start}...${end}"
+  fi
+}
+
+# Main loop
+find "$PLUGIN_DIR" -type f \( -name "*.gz" -o -name "*.txt" -o -name "*.tsv" -o -name "*.dat" \) | while read -r file; do
+  # Read first non-comment line
+  if [[ "$file" == *.gz ]]; then
+    header=$(gunzip -c "$file" 2>/dev/null | grep -v "^#" | head -n 1)
+  else
+    header=$(grep -v "^#" "$file" 2>/dev/null | head -n 1)
+  fi
+
+  # Determine chromosome format and assign colors
+  if [[ -z "$header" ]]; then
+    chrom_format="${RED}❓ Unknown${RESET}"
+    header_display="${RED}⚠️ Empty or comment-only file. Try: gunzip -c \"$file\" | head${RESET}"
+  elif echo "$header" | grep -qE '\bchr[0-9XYM]+\b'; then
+    chrom_format="${GREEN}chrN${RESET}"
+    header_display="${GREEN}$header${RESET}"
+  elif echo "$header" | grep -qE '\b[0-9XYM]+\b'; then
+    chrom_format="${GREEN}N${RESET}"
+    header_display="${GREEN}$header${RESET}"
+  else
+    chrom_format="${YELLOW}❓ Unknown${RESET}"
+    header_display="${YELLOW}⚠️ Unrecognized format: $header${RESET}"
+  fi
+
+  filename=$(basename "$file")
+  filename_display=$(truncate_middle "$filename" 45)
+  printf "%-45s | %-20b | %b\n" "$filename_display" "$chrom_format" "$header_display"
+done
