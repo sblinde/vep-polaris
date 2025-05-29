@@ -102,11 +102,10 @@ vep-polaris/
 
 ## Working with Documentation
 
-You can preview or deploy the `docs/` folder using MkDocs:
+You can preview the `docs/` folder using MKDocs.
 
 ```bash
 npm run docs:serve     # Preview at http://localhost:8000
-npm run docs:deploy    # Publish to GitHub Pages
 ```
 
 ## Contributing

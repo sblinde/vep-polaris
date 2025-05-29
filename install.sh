@@ -2,6 +2,14 @@
 
 set -e
 
+NO_SYMLINK=0
+
+for arg in "$@"; do
+  if [[ "$arg" == "--no-symlink" ]]; then
+    NO_SYMLINK=1
+  fi
+done
+
 echo "🔧 Installing VEP Polaris..."
 
 # Step 1: Make all scripts executable
@@ -14,12 +22,16 @@ chmod +x install.sh
 echo "✅ Marked CLI and test scripts as executable."
 
 # Step 2: Optional symlink to /usr/local/bin
-read -p "Would you like to symlink 'vep-polaris' to /usr/local/bin? [y/N] " answer
-if [[ "$answer" =~ ^[Yy]$ ]]; then
-  sudo ln -sf "$(pwd)/bin/vep-polaris" /usr/local/bin/vep-polaris
-  echo "✅ Symlinked: /usr/local/bin/vep-polaris"
+if [[ "$NO_SYMLINK" -eq 1 || -n "$CI" ]]; then
+  echo "⚙️ CI detected — skipping symlink to /usr/local/bin"
 else
-  echo "⚠️ Skipped symlinking. You can still run it from ./bin/vep-polaris"
+  read -p "Would you like to symlink 'vep-polaris' to /usr/local/bin? [y/N] " answer
+  if [[ "$answer" =~ ^[Yy]$ ]]; then
+    sudo ln -sf "$(pwd)/bin/vep-polaris" /usr/local/bin/vep-polaris
+    echo "✅ Symlinked: /usr/local/bin/vep-polaris"
+  else
+    echo "⚠️ Skipped symlinking. You can still run it from ./bin/vep-polaris"
+  fi
 fi
 
 # Step 3: Optional message for Docs setup
