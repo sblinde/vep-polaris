@@ -1,6 +1,6 @@
 {
     "name": "vep-polaris",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "A toolkit to inspect and manage Ensembl VEP plugin files",
     "author": "Sam Blinde",
     "license": "MIT",

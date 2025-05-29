@@ -19,6 +19,8 @@ theme:
   features:
     - navigation.instant
     - content.code.copy
+  plugins:
+    - mike
 
 nav:
   - Home: index.md
