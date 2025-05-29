@@ -2,7 +2,14 @@
 
 > A lightweight toolkit to inspect, validate, and manage plugin data for [Ensembl Variant Effect Predictor](https://www.ensembl.org/vep) (VEP).
 
-**VEP Polaris** helps you navigate the complex ecosystem of Ensembl VEP plugin files by ensuring compatibility, correctness, and clarity in your annotation pipeline.
+**VEP Polaris** helps you navigate the complex ecosystem of Ensembl VEP plugin data files by ensuring compatibility, correctness, and clarity in your annotation pipeline.
+
+## Why Use VEP Polaris?
+
+-   Prevent silent or breaking VEP annotation errors due to chr1 vs 1 mismatches
+-   Test and validate plugin data structure before annotation
+-   Identify problematic or empty files in large plugin datasets
+-   Prepare and clean up custom plugin inputs
 
 ## Tools Included
 
@@ -66,7 +73,7 @@ See [docs/testing.md](docs/testing.md) for more detail.
 vep-polaris <command> [options]
 ```
 
-Example
+Example:
 
 ```bash
 vep-polaris plugin-inspect --dir /vep/Plugins
@@ -93,14 +100,7 @@ vep-polaris/
 └── .gitignore
 ```
 
-## Why Use VEP Polaris?
-
--   🧠 Prevent silent or breaking VEP annotation errors due to chr1 vs 1 mismatches
--   🧪 Test and validate plugin data structure before annotation
--   🔍 Identify problematic or empty files in large plugin datasets
--   🔄 Prepare and clean up custom plugin inputs
-
-### 📘 Working with Documentation
+## Working with Documentation
 
 You can preview or deploy the `docs/` folder using MkDocs:
 
@@ -111,7 +111,7 @@ npm run docs:deploy    # Publish to GitHub Pages
 
 ## Contributing
 
-At this time, this is a small side project by Sam Blinde as she endeavors in the world of bioinformatics. As this project may grow over time during my learning, I'd welcome the following support:
+At this time, this is a small side project owned by me, Sam Blinde as I endeavor in the world of bioinformatics. As this project may grow over time during my learning, I'd welcome the following support:
 
 -   Suggesting a new tool in this repo
 -   Submit a bug fix if you come across one
@@ -121,7 +121,7 @@ At this time, this is a small side project by Sam Blinde as she endeavors in the
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
-## ⭐ Acknowledgments
+## Acknowledgments ⭐
 
 -   Built with love by Sam Blinde.
 -   Inspired by wrestling with VEP plugin formats.
