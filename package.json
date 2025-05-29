@@ -1,0 +1,14 @@
+{
+    "name": "vep-polaris",
+    "version": "1.0.0",
+    "description": "A toolkit to inspect and manage Ensembl VEP plugin files",
+    "author": "Sam Blinde",
+    "license": "MIT",
+    "scripts": {
+        "install": "bash install.sh",
+        "test": "bash run-tests.sh",
+        "docs:serve": "mkdocs serve",
+        "docs:build": "mkdocs build",
+        "docs:deploy": "mkdocs gh-deploy"
+    }
+}
