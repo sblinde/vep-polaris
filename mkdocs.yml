@@ -1,0 +1,30 @@
+site_name: VEP Polaris
+repo_url: https://github.com/sblinde/vep-polaris
+docs_dir: mkdocs
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+  font:
+    text: Atkinson Hyperlegible Next
+    code: Atkinson Hyperlegible Mono
+  features:
+    - navigation.instant
+    - content.code.copy
+  plugins:
+    - mike
+
+nav:
+  - Home: index.md
+  - Tools:
+      - Plugin Inspect: plugin-inspect.md
+  - Testing: testing.md
