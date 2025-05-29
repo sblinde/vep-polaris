@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# vep-polaris: Wrapper for the plugin-inspect tool (current single command)
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TOOL="$SCRIPT_DIR/plugin-inspect"
+
+show_help() {
+  cat <<EOF
+🌟 VEP Polaris - Plugin Inspection Tool
+
+Usage:
+  vep-polaris [options]
+
+This tool scans Ensembl VEP plugin data files to detect:
+- Chromosome naming format (e.g., chr1 vs 1)
+- Missing or malformed data
+- Comment-only or unusable files
+
+Options:
+  --dir /path          Set plugin directory to scan (default: \$HOME/vep/Plugins)
+  --no-color           Disable color output for log-friendly display
+  --help               Show this help message
+
+Example:
+  vep-polaris --dir /vep/Plugins
+EOF
+  exit 0
+}
+
+# Show help if requested or no args
+if [[ "$1" == "--help" || "$1" == "-h" || $# -eq 0 ]]; then
+  show_help
+fi
+
+# Pass everything else directly to plugin-inspect
+exec "$TOOL" "$@"

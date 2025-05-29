@@ -1,6 +1,8 @@
 site_name: VEP Polaris
 repo_url: https://github.com/sblinde/vep-polaris
+
 docs_dir: mkdocs
+
 theme:
   name: material
   palette:
