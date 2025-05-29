@@ -26,6 +26,10 @@ site/
 .cache/
 *.log
 
+# Mike versioned output
+versioned_docs/
+versioned_sidebars/
+
 # VEP Polaris build artifacts
 *.gz
 *.tsv
