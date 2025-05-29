@@ -26,9 +26,6 @@ Each command is a self-contained script, callable through the `vep-polaris` disp
 ```bash
 git clone https://github.com/sblinde/vep-polaris.git
 cd vep-polaris
-
-# Optionally add to PATH
-export PATH="$PWD/bin:$PATH"
 ```
 
 ### 🔧 Quick Install
@@ -36,7 +33,6 @@ export PATH="$PWD/bin:$PATH"
 If you have Node.js installed on your machine:
 
 ```bash
-cd ~/vep-polaris # navigate to the directory location
 npm run install
 ```
 
@@ -49,7 +45,6 @@ This will:
 ⚠️ If you’re not using Node, you can still run:
 
 ```bash
-cd ~/vep-polaris # navigate to the directory location
 chmod +x install.sh && ./install.sh
 ```
 
