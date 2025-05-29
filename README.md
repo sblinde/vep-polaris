@@ -1,4 +1,6 @@
-# VEP Polaris 🌟
+# [VEP Polaris](https://sblinde.github.io/vep-polaris/) 🌟
+
+[VEP Polaris Documentation Site](https://sblinde.github.io/vep-polaris/)
 
 > A lightweight toolkit to inspect, validate, and manage plugin data for [Ensembl Variant Effect Predictor](https://www.ensembl.org/vep) (VEP).
 
