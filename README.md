@@ -24,7 +24,7 @@ Each command is a self-contained script, callable through the `vep-polaris` disp
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/vep-polaris.git
+git clone https://github.com/sblinde/vep-polaris.git
 cd vep-polaris
 
 # Optionally add to PATH
