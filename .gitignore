@@ -1,6 +1,50 @@
-# .gitignore
-*.log
-*.tmp
-.DS_Store
+# Python / Pip
 __pycache__/
-.pytest_cache/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.env
+.venv
+env/
+venv/
+pip-log.txt
+
+# Node / npm
+node_modules/
+package-lock.json
+npm-debug.log
+.DS_Store
+
+# MkDocs
+site/
+*.lock
+.mypy_cache/
+.mkdocs/
+.cache/
+*.log
+
+# VEP Polaris build artifacts
+*.gz
+*.tsv
+*.dat
+*.vcf
+*.txt
+
+# Secrets or local config
+*.secret
+.env.*
+*.token
+*.key
+credentials.json
+
+# MacOS / editor temp
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# GitHub Pages artifacts
+gh-pages/
